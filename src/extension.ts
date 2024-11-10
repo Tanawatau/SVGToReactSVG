@@ -1,119 +1,25 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import * as vscode from "vscode";
+import * as vscode from 'vscode';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-
-const svgAttributesToCamelCase = [
-  "alignment-baseline",
-  "baseline-shift",
-  "clip-path",
-  "clip-rule",
-  "color-interpolation",
-  "color-interpolation-filters",
-  "color-profile",
-  "color-rendering",
-  "dominant-baseline",
-  "enable-background",
-  "fill-opacity",
-  "fill-rule",
-  "flood-color",
-  "flood-opacity",
-  "font-family",
-  "font-size",
-  "font-size-adjust",
-  "font-stretch",
-  "font-style",
-  "font-variant",
-  "font-weight",
-  "glyph-orientation-horizontal",
-  "glyph-orientation-vertical",
-  "image-rendering",
-  "letter-spacing",
-  "lighting-color",
-  "marker-end",
-  "marker-mid",
-  "marker-start",
-  "pointer-events",
-  "shape-rendering",
-  "stop-color",
-  "stop-opacity",
-  "stroke-dasharray",
-  "stroke-dashoffset",
-  "stroke-linecap",
-  "stroke-linejoin",
-  "stroke-miterlimit",
-  "stroke-opacity",
-  "stroke-width",
-  "text-anchor",
-  "text-decoration",
-  "text-rendering",
-  "unicode-bidi",
-  "vector-effect",
-  "word-spacing",
-  "writing-mode",
-  "xlink:href",
-  "xmlns:xlink",
-];
-
-function kebabToCamelCase(attribute: string): string {
-  return attribute.replace(/[-:]([a-z])/g, (match, letter) => letter.toUpperCase());
-}
-
-type TEdit = { startPos: vscode.Position; endPos: vscode.Position; convertedSvgBlock: string };
-
 export function activate(context: vscode.ExtensionContext) {
-  console.time("Activation Time");
 
-  let disposable = vscode.commands.registerCommand("convertSvgAttributesToCamelCase", async () => {
-    vscode.window.showInformationMessage("Extension is now active!");
-    const editor = vscode.window.activeTextEditor;
-    if (editor) {
-      await vscode.commands.executeCommand("editor.action.formatDocument");
-      const document = editor.document;
-      const fullText = document.getText();
+	// Use the console to output diagnostic information (console.log) and errors (console.error)
+	// This line of code will only be executed once when your extension is activated
+	console.log('Congratulations, your extension "svgtoreactsvg" is now active!');
 
-      if (document.languageId !== "javascriptreact" && document.languageId !== "typescriptreact") {
-        vscode.window.showWarningMessage("This command only works in JSX/TSX files.");
-        return;
-      }
+	// The command has been defined in the package.json file
+	// Now provide the implementation of the command with registerCommand
+	// The commandId parameter must match the command field in package.json
+	const disposable = vscode.commands.registerCommand('svgtoreactsvg.helloWorld', () => {
+		// The code you place here will be executed every time your command is executed
+		// Display a message box to the user
+		vscode.window.showInformationMessage('Hello World from svgToReactSvg!');
+	});
 
-      if (fullText) {
-        const svgTagRegex = /<svg[\s\S]*?>[\s\S]*?<\/svg>/gi;
-        let match;
-        const edits: TEdit[] = [];
-
-        while ((match = svgTagRegex.exec(fullText)) !== null) {
-          const svgBlock = match[0];
-          const startPos = document.positionAt(match.index);
-          const endPos = document.positionAt(match.index + svgBlock.length);
-
-          const convertedSvgBlock = svgBlock.replace(
-            /\b(?:alignment-baseline|baseline-shift|clip-path|clip-rule|color-interpolation|color-interpolation-filters|color-profile|color-rendering|dominant-baseline|enable-background|fill-opacity|fill-rule|flood-color|flood-opacity|font-family|font-size|font-size-adjust|font-stretch|font-style|font-variant|font-weight|glyph-orientation-horizontal|glyph-orientation-vertical|image-rendering|letter-spacing|lighting-color|marker-end|marker-mid|marker-start|pointer-events|shape-rendering|stop-color|stop-opacity|stroke-dasharray|stroke-dashoffset|stroke-linecap|stroke-linejoin|stroke-miterlimit|stroke-opacity|stroke-width|text-anchor|text-decoration|text-rendering|unicode-bidi|vector-effect|word-spacing|writing-mode|xlink:href|xmlns:xlink)\b/g,
-            (match) => {
-              if (svgAttributesToCamelCase.includes(match)) {
-                return kebabToCamelCase(match);
-              }
-              return match;
-            }
-          );
-
-          edits.push({ startPos, endPos, convertedSvgBlock });
-        }
-        editor.edit((editBuilder) => {
-          for (const { startPos, endPos, convertedSvgBlock } of edits) {
-            editBuilder.replace(new vscode.Range(startPos, endPos), convertedSvgBlock);
-          }
-        });
-      } else {
-      }
-    }
-  });
-
-  context.subscriptions.push(disposable);
-
-  console.timeEnd("Activation Time");
+	context.subscriptions.push(disposable);
 }
 
 // This method is called when your extension is deactivated

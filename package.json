@@ -2,32 +2,20 @@
   "name": "svgtoreactsvg",
   "displayName": "svgToReactSvg",
   "description": "change svg attribute to camelCase ",
-  "version": "1.0.0",
-  "publisher": "TanawatAu",
+  "version": "0.0.1",
   "engines": {
-    "vscode": "^1.91.0"
+    "vscode": "^1.95.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xabikos/vscode-javascript"
-  },
   "contributes": {
     "commands": [
       {
-        "command": "convertSvgAttributesToCamelCase",
-        "title": "Convert SVG Attributes to camelCase"
-      }
-    ],
-    "keybindings": [
-      {
-        "command": "convertSvgAttributesToCamelCase",
-        "key": "alt+shift+f",
-        "when": "editorTextFocus"
+        "command": "svgtoreactsvg.helloWorld",
+        "title": "Hello World"
       }
     ]
   },
@@ -46,17 +34,16 @@
     "test": "vscode-test"
   },
   "devDependencies": {
+    "@types/vscode": "^1.95.0",
     "@types/mocha": "^10.0.9",
-    "@types/node": "^16.18.46",
-    "@types/vscode": "^1.91.0",
+    "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.10.0",
     "@typescript-eslint/parser": "^8.7.0",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1",
-    "esbuild": "^0.24.0",
     "eslint": "^9.13.0",
-    "eslint-plugin-prettier": "^5.0.0",
+    "esbuild": "^0.24.0",
     "npm-run-all": "^4.1.5",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
   }
 }
