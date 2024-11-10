@@ -64,10 +64,7 @@ function kebabToCamelCase(attribute: string): string {
 type TEdit = { startPos: vscode.Position; endPos: vscode.Position; convertedSvgBlock: string };
 
 export function activate(context: vscode.ExtensionContext) {
-  console.time("Activation Time");
-
   let disposable = vscode.commands.registerCommand("convertSvgAttributesToCamelCase", async () => {
-    vscode.window.showInformationMessage("Extension is now active!");
     const editor = vscode.window.activeTextEditor;
     if (editor) {
       await vscode.commands.executeCommand("editor.action.formatDocument");
@@ -75,7 +72,6 @@ export function activate(context: vscode.ExtensionContext) {
       const fullText = document.getText();
 
       if (document.languageId !== "javascriptreact" && document.languageId !== "typescriptreact") {
-        vscode.window.showWarningMessage("This command only works in JSX/TSX files.");
         return;
       }
 
@@ -112,8 +108,6 @@ export function activate(context: vscode.ExtensionContext) {
   });
 
   context.subscriptions.push(disposable);
-
-  console.timeEnd("Activation Time");
 }
 
 // This method is called when your extension is deactivated
