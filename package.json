@@ -1,8 +1,8 @@
 {
   "name": "svgtoreactsvg",
-  "displayName": "svgToReactSvg",
+  "displayName": "SvgToReactSvg",
   "description": "change svg attribute to camelCase ",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "TanawatAu",
   "engines": {
     "vscode": "^1.91.0"
@@ -11,6 +11,7 @@
     "Other"
   ],
   "activationEvents": [],
+  "icon": "./asset/Icon.png",
   "main": "./dist/extension.js",
   "repository": {
     "type": "git",
